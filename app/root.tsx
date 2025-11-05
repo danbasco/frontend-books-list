@@ -10,6 +10,8 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import { ToastContainer } from "react-toastify";
+import UI from "./components/UI";
+
 
 
 import "react-toastify/dist/ReactToastify.css";
@@ -48,6 +50,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <>
+    <UI />
     <Outlet />
     <ToastContainer />
     </>
