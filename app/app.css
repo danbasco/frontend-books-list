@@ -2,9 +2,30 @@
 @import "tailwindcss";
 
 
+@layer base {
+  :root {
+    --text: #15110a;
+    --background: #fbf8f4;
+    --primary: #bf914f;
+    --secondary: #e0c19a;
+    --accent: #d9ac6d;
+  }
+  .dark {
+    --text: #f5f1ea;
+    --background: #0b0804;
+    --primary: #b08140;
+    --secondary: #65461f;
+    --accent: #926526;
+  }
+}
+
+
 body {
+
+  background-color: var(--background);
   font-family: 'Inter';
   font-weight: 400;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 h1, h2, h3, h4, h5 {

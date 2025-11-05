@@ -56,9 +56,9 @@ const RegisterForm : React.FC<Props> = ({ register, errors, watch }) => {
         { /* name */ }
         
         <div className="flex flex-col">
-            <label htmlFor="name" className="text-xs font-bold tracking-widest mb-2  text-[#e6eaef]">Name</label>
+            <label htmlFor="name" className="text-xs font-bold tracking-widest mb-2  text-[var(--text)]">Name</label>
             <input id="name" placeholder="name" 
-            className={`${errors.name ? "border-red-500" : "border-[#e6eaef]/40  focus:border-[#9675a3]"} text-[#e6eaef] p-2 border rounded-lg w-full sm:w-110 text-md font-bold focus:outline-none`} 
+            className={`${errors.name ? "border-red-500" : "border-[var(--text)]/40  focus:border-[var(--text)]"} text-[var(--text)] p-2 border rounded-lg w-full sm:w-110 text-md font-bold focus:outline-none`} 
             
             {...register("name", {required: true})}></input>
             {errors?.name?.type === 'required' && <p className="text-red-500 text-sm mt-2">Name is required.</p>}
@@ -67,9 +67,9 @@ const RegisterForm : React.FC<Props> = ({ register, errors, watch }) => {
         { /* email */ }
 
         <div className="flex flex-col">
-            <label htmlFor="email" className="text-xs font-bold tracking-widest mb-2  text-[#e6eaef]">Email</label>
+            <label htmlFor="email" className="text-xs font-bold tracking-widest mb-2  text-[var(--text)]">Email</label>
             <input id="email" placeholder="email" 
-            className={`${errors.email ? "border-red-500" : "border-[#e6eaef]/40  focus:border-[#9675a3]"} text-[#e6eaef] p-2 border rounded-lg w-full sm:w-110 text-md font-bold focus:outline-none`}
+            className={`${errors.email ? "border-red-500" : "border-[var(--text)]/40  focus:border-[var(--text)]"} text-[var(--text)] p-2 border rounded-lg w-full sm:w-110 text-md font-bold focus:outline-none`}
             
             {...register("email", {required: "Email is required.", 
                 validate: (value) => {
@@ -83,9 +83,9 @@ const RegisterForm : React.FC<Props> = ({ register, errors, watch }) => {
         { /* password */ }
 
         <div className="flex flex-col">
-            <label htmlFor="password" className="text-xs font-bold tracking-widest mb-2  text-[#e6eaef]">Password</label>
+            <label htmlFor="password" className="text-xs font-bold tracking-widest mb-2  text-[var(--text)]">Password</label>
             <input id="password" type="password" placeholder="password" 
-            className={`${errors.password ? "border-red-500" : "border-[#e6eaef]/40  focus:border-[#9675a3]"} text-[#e6eaef] p-2 border rounded-lg w-full sm:w-110 text-md font-bold focus:outline-none`} 
+            className={`${errors.password ? "border-red-500" : "border-[var(--text)]/40  focus:border-[var(--text)]"} text-[var(--text)] p-2 border rounded-lg w-full sm:w-110 text-md font-bold focus:outline-none`} 
 
             {...register("password", {required: "Password is required.", 
 
@@ -102,12 +102,12 @@ const RegisterForm : React.FC<Props> = ({ register, errors, watch }) => {
             {errors?.password && <p className="text-red-500 text-sm mt-2 wid">{errors.password?.message}</p>}
         </div>
 
-        { /* password */ }
+        { /* confirm password */ }
 
         <div className="flex flex-col">
-            <label htmlFor="confirm-password" className="text-xs font-bold tracking-widest mb-2  text-[#e6eaef]">Confirm Password</label>
+            <label htmlFor="confirm-password" className="text-xs font-bold tracking-widest mb-2  text-[var(--text)]">Confirm Password</label>
             <input id="confirm-password" type="password" placeholder="confirm password" 
-            className={`${errors.confirmpassword ? "border-red-500" : "border-[#e6eaef]/40  focus:border-[#9675a3]"} text-[#e6eaef] p-2 border rounded-lg w-full sm:w-110 text-md font-bold focus:outline-none`} 
+            className={`${errors.confirmpassword ? "border-red-500" : "border-[var(--text)]/40  focus:border-[var(--text)]"} text-[var(--text)] p-2 border rounded-lg w-full sm:w-110 text-md font-bold focus:outline-none`} 
 
             {...register("confirmpassword", {required: "Password is required.", 
 
