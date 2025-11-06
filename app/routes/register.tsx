@@ -37,20 +37,10 @@ const Register : React.FC = () => {
             
 
             const ct = resp.headers.get("content-type") || "";
-            let body: any = null;
-
-            if (ct.includes("application/json")) {
-                body = await resp.json();
-
-            } else {
-                body = await resp.text();
-
-            }
-            
+            const body = ct.includes("application/json") ? await resp.json() : await resp.text();
             const message = typeof body === "string" ? body : (body?.message ?? JSON.stringify(body));
-            console.log(message)
 
-            if(resp.status === 201) {
+            if(resp.ok) {
 
                 successNotification(message);
                 navigate("/auth/login");
