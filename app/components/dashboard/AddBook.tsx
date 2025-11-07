@@ -91,7 +91,7 @@ const AddBook: React.FC<Props> = ({ onClose, onCreated }) => {
                 id: `temp-${Date.now()}`,
                 title: data.title,
                 author: data.author,
-                description: data.description,
+                description: data.description || data.title,
                 status: data.status,
                 genre: data.genre
                 } as Book;
@@ -163,7 +163,7 @@ const AddBook: React.FC<Props> = ({ onClose, onCreated }) => {
                 {/* Description */}
                 <div>
                     <label className="block text-sm font-medium mb-1">Description (opcional)</label>
-                    <textarea className="w-full p-2 shadow-md rounded bg-[var(--accent)] text-[var(--text)] focus:outline-[var(--accent)] focus:border-[var(--text)]" rows={4}
+                    <textarea className="w-full p-2 shadow-md rounded bg-[var(--accent)] text-[var(--text)] focus:outline-[var(--accent)] focus:border-[var(--text)] border-none focus:border-[var(--text)] focus:outline-none" rows={4}
                     id="description"
                     {...register("description")}
                     />
