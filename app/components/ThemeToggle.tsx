@@ -20,7 +20,7 @@ const ThemeToggle: React.FC = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="relative w-10 h-10 rounded-full flex items-center justify-center overflow-hidden transition-all duration-500"
+      className="relative w-10 h-10 rounded-full flex items-center justify-center overflow-hidden transition-all duration-500 hover:cursor-pointer"
       aria-label="Alternar tema"
     >
       <div
