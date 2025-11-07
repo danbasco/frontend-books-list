@@ -5,6 +5,8 @@ import Loader from "~/components/Loader";
 import { errorNotification, successNotification } from "~/components/ToasterComponents/ToasterNotifications";
 import LoginForm from "~/components/login/LoginForm";
 import "~/styles/loader.css";
+import { useNavigate } from "react-router";
+import { useAuth } from "../context/AuthContext";
 
 interface Props {
     email: string,
@@ -13,12 +15,15 @@ interface Props {
 
 const Login : React.FC = () => {
 
+    const navigate = useNavigate();
+    const auth = useAuth();
+
     const { register, handleSubmit, formState: {errors} } = useForm<Props>();
     const BASEURL = import.meta.env.VITE_BASE_URL ?? (typeof window !== "undefined" ? window.location.origin : "http://localhost"); 
     const [loading, setLoading] = useState<boolean>(false);
 
     const onSubmit = async (data: Props) => {
-
+        const controller = new AbortController();
         try {
 
             setLoading(true);
@@ -27,35 +32,36 @@ const Login : React.FC = () => {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data),
+                signal: controller.signal,
             });
 
-            const ct = resp.headers.get("content-type") || "";
-            let body: any = null;
-
-            if (ct.includes("application/json")) {
-                body = await resp.json();
-
-            } else {
-                body = await resp.text();
-
-            }
-            
-            console.log(body);
-
+            const ct = resp.headers.get("content-type") ?? "";
+            const body = ct.includes("application/json") ? await resp.json() : await resp.text();
             const message = typeof body === "string" ? body : (body?.message ?? JSON.stringify(body));
-            console.log(message)
 
-            if(resp.status === 200) {
-                
+            if(resp.ok && body?.user?.token) {
+
+                console.log("Login successful");
+                auth.login(body.user.token);
                 successNotification(message);
+                navigate("/dashboard", { replace: true });
+                
             }
 
             else {
+
+                console.log("Login failed");
                 errorNotification(message);
             }
 
-        } catch (err) {
+        } catch (err: any) {
+            if (err.name === "AbortError") {
+                console.log("Request was aborted");
+            } else {
 
+                console.error("Login error:", err);
+                errorNotification(err.message ?? "An unexpected error occurred");
+            }
         } finally {
             setLoading(false);
         }

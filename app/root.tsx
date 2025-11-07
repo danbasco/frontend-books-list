@@ -10,7 +10,8 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import { ToastContainer } from "react-toastify";
-import UI from "./components/UI";
+import UI from "./routes/UI";
+import { AuthProvider } from "./context/AuthContext";
 
 
 
@@ -49,11 +50,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <>
+    <AuthProvider>
     <UI />
     <Outlet />
     <ToastContainer />
-    </>
+    </AuthProvider>
   );
 }
 
