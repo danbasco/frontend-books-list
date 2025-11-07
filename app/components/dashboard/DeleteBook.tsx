@@ -24,7 +24,7 @@ const DeleteBook : React.FC<Props> = ({ onClose, onDeleted, bookId }: Props) => 
 
             setLoading(true);
 
-            const response = await fetch(`${BASEURL}/api/books/${bookId}`, {
+            const response = await fetch(`${BASEURL}/books/${bookId}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
@@ -52,7 +52,9 @@ const DeleteBook : React.FC<Props> = ({ onClose, onDeleted, bookId }: Props) => 
 
 
     return (
-        <div>
+        <div className="fixed inset-0 z-30 flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+            <div className="bg-white dark:bg-[var(--accent)] rounded-lg p-6 z-40 w-96 shadow-md">
             <h2 className="text-xl font-bold mb-4">Delete Book</h2>
             <p>Are you sure you want to delete this book?</p>
             <div className="flex justify-end mt-4">
@@ -63,6 +65,10 @@ const DeleteBook : React.FC<Props> = ({ onClose, onDeleted, bookId }: Props) => 
                 Cancel
                 </button>
             </div>
+            </div>
+            {loading && (<div className="absolute inset-0 flex items-center justify-center z-50">
+                <Loader />
+            </div>)}
         </div>
     );
 };
