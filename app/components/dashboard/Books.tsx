@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { type Book } from "~/types/book.type";
 import ViewDetails from "./ViewDetails";
 import AddBookButton from "./AddBookButton"; // botão simples
@@ -6,24 +6,24 @@ import AddBook from "./AddBook"; // modal / formulário de adicionar livro
 
 interface Props {
   books: Book[];
+  
 }
 
 const Books: React.FC<Props> = ({ books }: Props) => {
-  const templateBook: Book = {
-    id: 0,
-    title: "Book",
-    author: "Author",
-    description: "Description of a book",
-    genre: ["Adventure"],
-    status: "FINISHED",
-  };
+
 
   const [showDetails, setShowDetails] = useState<boolean>(false);
-  const [bookDetails, setBookDetails] = useState<Book>(templateBook);
+  const [bookDetails, setBookDetails] = useState<Book>();
   const [showAddForm, setShowAddForm] = useState<boolean>(false);
 
+  const [localBooks, setLocalBooks] = useState<Book[]>(books);
+
+  useEffect(() => {
+    setLocalBooks(books);
+  }, [books]);
+
   const onClickShow = (book: Book) => {
-    if (book.id !== bookDetails.id) {
+    if (book.id !== bookDetails?.id) {
       setBookDetails(book);
       setShowDetails(true);
       return;
@@ -40,22 +40,27 @@ const Books: React.FC<Props> = ({ books }: Props) => {
   const handleCloseAdd = () => setShowAddForm(false);
 
   const handleCreated = (newBook: Book) => {
-    // Aqui você pode:
-    // - fechar o modal (feito abaixo)
-    // - notificar o pai para atualizar a lista (refetch), se necessário
+    
     setShowAddForm(false);
-    // Se quiser atualizar a UI localmente, teria que receber e manter 'books' no estado do pai
+    console.log("New book added:", newBook);
+    setLocalBooks((prev) => [newBook, ...prev]);
+    
+    
   };
 
   return (
     <div className="flex items-stretch">
       <div className="w-1/2 mr-2">
-        {books.map((book: Book) => (
+        {localBooks.length === 0 && (
+          <p className="text-[var(--text)] items-center">No books found.</p>
+        )}
+        {localBooks.map((book: Book) => (
           <li key={book.id} className="flex gap-2 z-0 list-none">
             <div className="p-3 bg-[var(--accent)] w-full my-2 rounded-md shadow-md text-[var(--text)] flex">
               <div>
                 <p className="text-lg font-bold">{book.title}</p>
                 <p className="text-sm">{book.author}</p>
+                
               </div>
 
               <div className="w-full flex flex-row-reverse">
@@ -104,9 +109,16 @@ const Books: React.FC<Props> = ({ books }: Props) => {
       </div>
 
       <div className="bg-[var(--accent)] w-1/2 ml-2 rounded-md shadow-md">
+        
+        {books.length === 0 && (
+          <div className="p-4">
+            <p className="text-xl font-bold mb-4 text-[var(--text)]">Book Details</p>
+          </div>
+        )}
+
         {showDetails && (
           <div>
-            <ViewDetails book={bookDetails} />
+            {bookDetails && <ViewDetails book={bookDetails} />}
           </div>
         )}
       </div>
