@@ -27,7 +27,7 @@ const FilterBook: React.FC<Props> = ({ onClose, handleFilter, books, filterValue
             author: "",
             description: "",
             genre: [],
-            status: STATUS[0] as Status
+            status: "",
         }
     );
 
@@ -151,7 +151,7 @@ const FilterBook: React.FC<Props> = ({ onClose, handleFilter, books, filterValue
 
     return (
 
-        <div className="fixed inset-x-0 z-30 flex items-center justify-center">
+        <div className="absolute inset-x-0 z-30 flex items-center justify-center overflow-auto">
             <div className="fixed inset-0 bg-black/40 backdrop-blur-xs"
                 onClick={() => {
                     filterBooks(bookId);

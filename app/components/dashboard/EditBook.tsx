@@ -58,9 +58,11 @@ const EditBook: React.FC<Props> = ({ book, onClose, onEdited }: Props) => {
     };
 
     return (
+        <div>
         <div className=" w-full p-3 text-[var(--text)]">
+        
             <h2 className="text-lg font-bold mb-2">Edit Book</h2>
-            {loading && <Loader />}
+            
             <form onSubmit={handleSubmit(onSubmit)}>
 
                 {/** Title */}
@@ -143,6 +145,8 @@ const EditBook: React.FC<Props> = ({ book, onClose, onEdited }: Props) => {
                     <button type="submit" className="bg-[var(--secondary)] text-[var(--text)] px-4 py-2 rounded-md shadow-md hover:bg-[var(--secondary)]/80 hover:cursor-pointer">Save</button>
                 </div>
             </form>
+        </div>
+        {loading && <Loader />}
         </div>
     );
 
