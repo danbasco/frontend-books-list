@@ -149,7 +149,7 @@ const Dashboard: React.FC = () => {
         <div className="p-6">
             {loading ? <Loader /> : null}
 
-            <div className={`${!viewFilter ? "hidden" : ""}`}>
+            <div className={`${!viewFilter ? "hidden" : ""} max-h-[80vh]`}>
             <FilterBook onClose={() => setViewFilter(false)} books={originalBooksRef.current} handleFilter={setBooks} filterValue={filterValue} setFilterValue={setFilterValue} />
             </div>
             <div className="bg-[var(--secondary)]/40 p-6 rounded-md shadow-md">
