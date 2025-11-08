@@ -5,6 +5,7 @@ import AddBookButton from "./AddBookButton";
 import AddBook from "./AddBook";
 import DeleteBook from "./DeleteBook";
 import EditBook from "./EditBook";
+import "~/styles/scrollbar.css";
 
 interface Props {
     books: Book[];
@@ -160,8 +161,10 @@ const Books: React.FC<Props> = ({ books, onCreated, onEdited, onDeleted }: Props
     };
 
     return (
-        <div className="flex items-stretch w-full h-full">
-            <div className="w-1/2 mr-2">
+        <div className="flex flex-col md:flex-row items-stretch w-full h-full">
+            <div className="w-full md:w-1/2 md:mr-2">
+
+            <div className="max-h-[60vh] md:max-h-[80vh] overflow-auto pr-2 custom-scrollbar">
                 {localBooks.length === 0 && (
                 <p className="text-[var(--text)] items-center">No books found.</p>
                 )}
@@ -221,13 +224,14 @@ const Books: React.FC<Props> = ({ books, onCreated, onEdited, onDeleted }: Props
                     </div>
                 </li>
                 ))}
+                </div>
 
-                <div className="flex mt-10">
+                <div className="flex mt-4">
                 <AddBookButton onClick={addBook} label="Add Book" />
                 </div>
             </div>
 
-            <div className="bg-[var(--accent)] w-1/2 ml-2 rounded-md shadow-md">
+            <div className="bg-[var(--accent)] w-full md:w-1/2 md:ml-2 mt-4 md:mt-0 rounded-md shadow-md">
 
                 {localBooks.length === 0 && (
                 <div className="p-4">

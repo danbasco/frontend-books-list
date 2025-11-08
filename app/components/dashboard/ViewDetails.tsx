@@ -12,7 +12,7 @@ const ViewDetails: React.FC<Props> = ({ book }: Props) => {
             <p className="font-bold text-xl">{book.title}</p>
             <p className="text-sm mb-5">{book.author}</p>
             
-            <p className="text-sx mb-5 flex"><p className="mr-2 font-bold">Id:</p>{book.id}</p>
+            <p className="text-sx mb-5 md:flex flex-column"><p className="mr-2 font-bold">Id:</p>{book.id}</p>
             <p className ="font-bold">Description</p>
             <p className="mb-3">{book.description}</p>
             <p className ="font-bold">Genre</p>
