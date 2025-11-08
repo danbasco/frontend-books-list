@@ -39,7 +39,7 @@ const Filters: React.FC<Props> = ({ filters, setFilters, onFilter, onClose }: Pr
 
     return (
 
-        <div className="">
+        <div className="text-[var(--text)] rounded-md shadow-md bg-[var(--secondary)]/30 p-4">
             <p className="font-bold text-lg">Filters</p>
 
 
