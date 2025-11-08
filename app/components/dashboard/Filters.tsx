@@ -1,14 +1,13 @@
 import { useForm } from "react-hook-form";
 import { GENRES, type Genre } from "~/types/genre.type";
 import { STATUS, type Status } from "~/types/status.type";
-import StatusList from "./StatusList";
 
 export interface PropsForm {
     title: string;
     author: string;
     description: string;
     genre: Genre[];
-    status: Status;
+    status: Status | "";
 }
 
 interface Props {
@@ -27,7 +26,7 @@ const Filters: React.FC<Props> = ({ filters, setFilters, onFilter, onClose }: Pr
                 author: "",
                 description: "",
                 genre: [],
-                status: STATUS[0] as Status
+                status: "",
             }
         });
 
@@ -87,7 +86,17 @@ const Filters: React.FC<Props> = ({ filters, setFilters, onFilter, onClose }: Pr
             </div>
 
             <div className="mt-4">
-                <StatusList control={control} errors={errors}/>
+                <label className="block mb-2 text-sm font-medium text-[var(--text)]">Status</label>
+                <select
+                    id="status"
+                    {...register("status")}
+                    className="w-full p-2 border border-none rounded bg-[var(--accent)] text-[var(--text)] focus:outline-none focus:border-none"
+                >
+                    <option value="">Any</option>
+                    {STATUS.map((s) => (
+                        <option key={s} value={s}>{s}</option>
+                    ))}
+                </select>
             </div>
 
             {/* Genres - checkbox group */}
