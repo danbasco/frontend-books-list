@@ -8,9 +8,12 @@ import EditBook from "./EditBook";
 
 interface Props {
     books: Book[];
+    onCreated?: (book: Book) => void;
+    onEdited?: (book: Book) => void;
+    onDeleted?: (bookId: string) => void;
 }
 
-const Books: React.FC<Props> = ({ books }: Props) => {
+const Books: React.FC<Props> = ({ books, onCreated, onEdited, onDeleted }: Props) => {
 
     const BASEURL = import.meta.env.VITE_BASE_URL ?? (typeof window !== "undefined" ? window.location.origin : "http://localhost");
     const TOKEN_KEY = "token";
@@ -67,13 +70,12 @@ const Books: React.FC<Props> = ({ books }: Props) => {
         } as Book;
 
         setLocalBooks((prev) => prev.map((book) => (book.id === normalized.id ? normalized : book)));
+        
+        onEdited?.(normalized);
+        setBookDetails(normalized);
 
-        if (bookDetails?.id === updatedBook.id) {
-            setBookDetails(updatedBook);
-        }
 
-
-        console.log("Book edited:", updatedBook);
+        console.log("Book edited:", normalized);
         setShowDetails(true);
         setShowEdit(false);
     };
@@ -89,6 +91,7 @@ const Books: React.FC<Props> = ({ books }: Props) => {
     const handleDeleted = (bookId: string) => {
 
         setLocalBooks((prev) => prev.filter((book) => book.id !== bookId));
+        onDeleted?.(bookId);
         setShowDetails(false);
         setShowDeleteConfirm(false);
         setShowEdit(false);
@@ -105,6 +108,7 @@ const Books: React.FC<Props> = ({ books }: Props) => {
         setShowAddForm(false);
         console.log("New book added:", newBook);
         setLocalBooks((prev) => [newBook, ...prev]);
+        onCreated?.(newBook);
 
         const token = localStorage.getItem(TOKEN_KEY);
         if (!token) return;
@@ -146,6 +150,7 @@ const Books: React.FC<Props> = ({ books }: Props) => {
             const real = await fetchBooks();
             if (real && real.id) {
                 setLocalBooks((prev) => prev.map((b) => (b.id === newBook.id ? real : b)));
+                onCreated?.(real);
                 console.log("Replaced temp book with real book from server:", real);
                 return;
             }
