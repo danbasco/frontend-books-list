@@ -30,6 +30,16 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+export function meta({}: Route.MetaArgs) {
+
+  
+
+  return [
+    { title: "Litly" },
+    { name: "description", content: "Welcome to Litly!" },
+  ];
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">

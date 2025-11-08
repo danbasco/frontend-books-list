@@ -6,6 +6,7 @@ import Books from "~/components/dashboard/Books";
 import "~/styles/loader.css";
 import { type Book } from "~/types/book.type";
 import FilterBook from "~/components/dashboard/FilterBook";
+import Logo from "~/assets/icons/icon-bg.png";
 
 
 const Dashboard: React.FC = () => {
@@ -152,15 +153,16 @@ const Dashboard: React.FC = () => {
             <FilterBook onClose={() => setViewFilter(false)} books={originalBooksRef.current} handleFilter={setBooks} filterValue={filterValue} setFilterValue={setFilterValue} />
             </div>
             <div className="bg-[var(--secondary)]/40 p-6 rounded-md shadow-md">
-                <div className="flex">
-                    <h3 className="text-2xl font-bold mb-4 text-[var(--text)]">Litly</h3>
+                <div className="flex align-items-center">
+                    <img src={Logo} alt="Logo" className="h-10 w-auto" />
+                    <h3 className="text-2xl font-bold text-[var(--text)] leading-none">Litly</h3>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-10 my-auto ml-auto text-[var(--text)] hover:cursor-pointer hover:text-[var(--text)]/40 transition hover:scale-110"
                     onClick={() => {setViewFilter(!viewFilter);}}
                     >
                     <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                     </svg>
                 </div>
-                <div className="bg-[var(--primary)]/40 p-6 rounded-md shadow-md">
+                <div className="bg-[var(--primary)]/40 p-6 rounded-md shadow-md mt-4">
 
                     <Books 
                     books={books} 
